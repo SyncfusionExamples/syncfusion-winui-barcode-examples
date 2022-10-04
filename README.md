@@ -1,6 +1,6 @@
 # WinUI Barcode Example (How to add Barcode control in WinUI application)
 
-This repository contains sample for how to add the [Syncfusion WinUI Barcode](https://help.syncfusion.com/winui/barcode/getting-started) control in WinUI application. The Barcode control helps you to generate and display data in a machine-readable format. It provides a perfect approach for encoding text using the supported barcode types.
+This repository contains sample for how to add the [Syncfusion WinUI Barcode](https://help.syncfusion.com/winui/barcode/getting-started) control in WinUI application. The WinUI Barcode control helps you to generate and display data in a machine-readable format. It provides a perfect approach for encoding text using the supported barcode types.
 
 ## Syncfuion controls
 
