@@ -1,44 +1,151 @@
-# WinUI Barcode Example (How to add Barcode control in WinUI application)
+# GettingStarted Barcode WinUI
+This is demo application of WinUI SfBarcode control. The minimal set of required properties have been configured in this project to get started with SfBarcode in WinUI.
 
-This repository contains sample for how to add the [Syncfusion WinUI Barcode](https://help.syncfusion.com/winui/barcode/getting-started) control in WinUI application. The WinUI Barcode control helps you to generate and display data in a machine-readable format. It provides a perfect approach for encoding text using the supported barcode types.
+## Description
 
-## Syncfuion controls
+The [SfBarcode](https://help.syncfusion.com/winui/barcode/getting-started) control helps you to generate and display data in a machine-readable format. It provides a perfect approach for encoding text using the supported barcode types.
 
-This project used the following Syncfusion control(s):
-* [SfBarcode](https://www.syncfusion.com/winui-controls/barcode)
+## Initialize Barcode
+Add reference to [Syncfusion.Barcode.WinUI](https://www.nuget.org/packages/Syncfusion.Barcode.WinUI) NuGet and import the control namespace `Syncfusion.UI.Xaml.Barcode`  in XAML or C# to initialize the control.
 
-## Requirements to run the sample
+###### Xaml
+```xaml
 
-* [Visual Studio](https://visualstudio.microsoft.com/downloads/)
-* [Windows App SDK 1.1 extension](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/stable-channel#version-11)
-* .NET 6.0
+<Window
+    .....
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Barcode">
+    
+    <syncfusion:SfBarcode Value="48625310">
+        <syncfusion:SfBarcode.Symbology>
+            <syncfusion:CodabarBarcode />
+        </syncfusion:SfBarcode.Symbology>
+    </syncfusion:SfBarcode>
+            
+</Window>
+ ```
+###### C#
+```C#
 
-Refer to the following link for more details - [System Requirements](https://help.syncfusion.com/winui/system-requirements)
+using Syncfusion.UI.Xaml.Barcode;
 
-## How to run the sample
-
-1. Clone the sample and open it in Visual Studio.
-
-   *Note: If you download the sample using the "Download ZIP" option, right-click it, select Properties, and then select Unblock.*
-
-2. Register your license key in the App.cs file as demonstrated in the following code.
-
-        public App()
+namespace GettingStarted
+{
+    public sealed partial class MainWindow : Window
+    {
+        public MainWindow()
         {
-            //Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR LICENSE KEY");
-
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
+            
+            SfBarcode barcode = new SfBarcode();
+            CodabarBarcode codabarBarcode = new CodabarBarcode();
+            barcode.Symbology = codabarBarcode;
+            barcode.Value = "48625310";
         }
+    }   
+}
+```
 
-Refer to this [link](https://help.syncfusion.com/winui/licensing/overview) for more details.
+## Switching Symbology
 
-3. Clean and build the application.
+This sample demonstrates how to switch between different barcode symbologies at runtime. The sample uses a ViewModel to manage the symbology selection and binds it to the barcode control.
 
-4. Run the application.
+###### Xaml
+```xaml
+<Window
+    x:Class="GettingStarted.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GettingStarted"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Barcode"
+    xmlns:core="using:Syncfusion.UI.Xaml.Core"
+    mc:Ignorable="d">
 
-## License
+    <Grid>
+        <Grid.DataContext>
+            <local:ViewModel />
+        </Grid.DataContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0"
+                    Margin="0,100,0,0"
+                    HorizontalAlignment="Center">
+            <syncfusion:SfBarcode x:Name="barcode"
+                                  Width="340"
+                                  Height="150"
+                                  Module="{Binding ModuleValue}"
+                                  Symbology="{Binding SymbologyItem}"
+                                  Value="48625310" />
+        </StackPanel>
+        <StackPanel Grid.Column="1"
+                    Orientation="Vertical">
+            <ComboBox x:Name="symbology"
+                      Width="185"
+                      Margin="10"
+                      DisplayMemberPath="SymobologyItem"
+                      Header="Symbology"
+                      ItemsSource="{Binding Symbology}"
+                      SelectedIndex="0"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox x:Name="rotationAngle"
+                      Width="185"
+                      Margin="10"
+                      Header="RotationAngle"
+                      ItemsSource="{core:EnumValuesExtension Type=syncfusion:BarcodeRotation}"
+                      SelectedItem="{Binding ElementName=barcode, Path=RotationAngle, Mode=TwoWay}" />
+            <CheckBox x:Name="showValue"
+                      Width="185"
+                      Margin="12,10,10,10"
+                      Content="ShowValue"
+                      IsChecked="{Binding ElementName=barcode, Path=ShowValue, Mode=TwoWay}" />
+        </StackPanel>
+    </Grid>
+</Window>
+```
 
-Syncfusion has no liability for any damage or consequence that may arise by using or viewing the samples. The samples are for demonstrative purposes, and if you choose to use or access the samples, you agree to not hold Syncfusion liable, in any form, for any damage that is related to use, for accessing, or viewing the samples. By accessing, viewing, or seeing the samples, you acknowledge and agree Syncfusion’s samples will not allow you seek injunctive relief in any form for any claim related to the sample. If you do not agree to this, do not view, access, utilize, or otherwise do anything with Syncfusion’s samples.
+## Supported Symbologies
+
+The SfBarcode control supports various symbology types. In this sample, you can switch between the following symbologies:
+* CodaBar
+* Code11
+* Code32
+* Code39
+* Code39Extended
+* Code93
+* Code93Extended
+* Code128A
+* Code128B
+* Code128C
+* UpcBarcode
+* DataMatrix
+* QRBarcode
+
+## Customization Options
+
+The sample also demonstrates several customization options for the barcode:
+
+### Module
+The width ratio of the wide and narrow bars can be changed using the Module property.
+
+### Rotation Angle
+The barcode can be rotated in various angles using the RotationAngle property.
+
+### Show Value
+The visibility of the barcode text can be controlled using the ShowValue property.
+
+## Output
+
+![WinUI Barcode Getting Started image](GettingStarted/Images/Getting_Started.png)
+
+For more details please refer this ug [Barcode](https://help.syncfusion.com/winui/barcode/getting-started/?utm_medium=listing&utm_source=github-examples).
+
+
+
+
+
+
+
+
