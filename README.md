@@ -1,7 +1,7 @@
 # GettingStarted Barcode WinUI
 This is demo application of WinUI SfBarcode control. The minimal set of required properties have been configured in this project to get started with SfBarcode in WinUI.
 
-## <a name="description"></a>Description ##
+## Description ##
 
 The [SfBarcode](https://help.syncfusion.com/winui/barcode/getting-started) control helps you to generate and display data in a machine-readable format. It provides a perfect approach for encoding text using the supported barcode types.
 
@@ -136,7 +136,7 @@ The barcode can be rotated in various angles using the RotationAngle property.
 ### Show Value
 The visibility of the barcode text can be controlled using the ShowValue property.
 
-## <a name="output"></a>Output ##
+## Output ##
 
 ![WinUI Barcode Getting Started image](GettingStarted/Images/Getting_Started.png)
 
